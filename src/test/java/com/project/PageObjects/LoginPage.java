@@ -3,15 +3,16 @@ package com.project.PageObjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.project.BaseClasses.Test1BaseClass;
 import com.project.utils.ExcelDataProvider;
 
-public class LoginPage {
+public class LoginPage extends Test1BaseClass{
 	
 	
 	@FindBy(id="sign-in")
 	WebElement signin;
 	
-	@FindBy(xpath="//input[@id='session_email']") 
+	@FindBy(xpath="//input[@id='sessio4n_email']") 
 	WebElement email;
 	
 	@FindBy(id="session_password") 
@@ -30,15 +31,15 @@ public class LoginPage {
 	/**
 	 * Method to enter Email
 	 */
-	public void enterEmail() {
-		email.sendKeys("rachit@test.com");
+	public void enterEmail(String mail) {
+		email.sendKeys(mail);
 	}
 	
 	/**
 	 * Method to enter Password
 	 */
-	public void enterPassword() {
-		password.sendKeys("Test1234");
+	public void enterPassword(String Password) {
+		password.sendKeys(Password);
 	}
 	
 	/**

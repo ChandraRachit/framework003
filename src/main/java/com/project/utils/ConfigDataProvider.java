@@ -9,23 +9,24 @@ public class ConfigDataProvider {
 	public Properties pro;
 	
 	public ConfigDataProvider() {
-		File file=new File(System.getProperty("user.dir")+"/src/test/resources/TestData.xlsx");
+		File file=new File(System.getProperty("user.dir")+"/src/test/resources/config.properties");
 		try {
 			FileInputStream fin=new FileInputStream(file);
 			pro =new Properties();
 			pro.load(fin);
 		} catch (Exception e) {
-			System.out.println("unable to load Properties file"+e.getMessage());
+			System.out.println("unable to load Properties file "+e.getMessage());
 		}
 		
 	}
 	
 	/**
-	 * Method to get Browser Name
+	 * Method to get value from properties file
+	 * @param key
 	 * @return
 	 */
-	public String getBrowser() {
-		return pro.getProperty("Browser");
+	public String getValue(String key) {
+		return pro.getProperty(key);
 	}
 
 }
