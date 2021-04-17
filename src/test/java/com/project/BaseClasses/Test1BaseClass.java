@@ -1,12 +1,20 @@
 package com.project.BaseClasses;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.project.utils.BrowserFactory;
 import com.project.utils.ConfigDataProvider;
 import com.project.utils.ExcelDataProvider;
@@ -17,11 +25,17 @@ public class Test1BaseClass {
 	protected WebDriver driver;
 	protected ExcelDataProvider excel;
 	protected ConfigDataProvider config;
+	protected ExtentReports report;
+	protected ExtentTest logger;
 	
 	@BeforeSuite
 	public void beforeSuite() {
+		Reporter.log("Setting up the browser",true);
 		excel=new ExcelDataProvider();
 		config=new ConfigDataProvider();
+		ExtentHtmlReporter extent=new ExtentHtmlReporter(new File(System.getProperty("user.dir")+"/Report/FreeCRM_"+Helper.generateCurrentTime()+".html"));
+		report=new ExtentReports();
+		report.attachReporter(extent);
 	}
 	
 	@BeforeClass
@@ -30,12 +44,16 @@ public class Test1BaseClass {
 	}
 	
 	@AfterMethod
-	public void resultCapture(ITestResult result) {
+	public void resultCapture(ITestResult result) throws IOException {
 		System.out.println(result);
 		if(ITestResult.FAILURE==result.getStatus()) {
-			Helper.captureScreenshot(driver,"Test1");
-			System.out.println("Screenshot Captured");
+			logger.fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver, result.getTestName())).build());
+		}else if(ITestResult.SUCCESS==result.getStatus()) {
+			logger.pass("Test Passed", MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver, result.getTestName())).build());
+		}else if(ITestResult.SKIP==result.getStatus()) {
+			logger.skip("Test Skipped", MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver, result.getTestName())).build());
 		}
+		report.flush();
 	}
 	
 	@AfterClass

@@ -18,7 +18,7 @@ public class Helper {
 	 * @return
 	 */
 	public static String captureScreenshot(WebDriver driver,String ScreenshotName) {
-		ScreenshotName=ScreenshotName+"_generateCurrentTime";
+		ScreenshotName=ScreenshotName+"_"+generateCurrentTime();
 		File file=new File(System.getProperty("user.dir")+"/Screenshot/"+ScreenshotName+".png");
 		
 		TakesScreenshot ts=(TakesScreenshot)driver;
@@ -35,7 +35,7 @@ public class Helper {
 	/**
 	 * Method to generate Current date and time
 	 */
-	public String generateCurrentTime() {
+	public static String generateCurrentTime() {
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 		Date date=new Date();
 		return sd.format(date);

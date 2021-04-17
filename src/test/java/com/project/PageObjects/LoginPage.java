@@ -12,7 +12,7 @@ public class LoginPage extends Test1BaseClass{
 	@FindBy(id="sign-in")
 	WebElement signin;
 	
-	@FindBy(xpath="//input[@id='sessio4n_email']") 
+	@FindBy(xpath="//input[@id='session_email']") 
 	WebElement email;
 	
 	@FindBy(id="session_password") 
