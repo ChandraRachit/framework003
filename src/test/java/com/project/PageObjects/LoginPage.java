@@ -2,12 +2,12 @@ package com.project.PageObjects;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import com.project.BaseClasses.Test1BaseClass;
 import com.project.utils.ExcelDataProvider;
 
 public class LoginPage extends Test1BaseClass{
-	
 	
 	@FindBy(id="sign-in")
 	WebElement signin;

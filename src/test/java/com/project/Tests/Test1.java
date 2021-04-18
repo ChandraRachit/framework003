@@ -1,16 +1,19 @@
 package com.project.Tests;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
-
 import com.project.BaseClasses.Test1BaseClass;
 import com.project.PageObjects.LoginPage;
-import com.project.utils.ExcelDataProvider;
 
 public class Test1 extends Test1BaseClass {
 
 	@Test
 	public void test1() throws InterruptedException {
+		Logger log=Logger.getLogger("Test1BaseClass");
+		PropertyConfigurator.configure("log4j.properties");
+		log.info("Test Started by Tester");
 		logger=report.createTest("Login to CRM");
 		LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
 		logger.info("Logging to account");
