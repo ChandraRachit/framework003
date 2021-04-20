@@ -3,6 +3,9 @@ package com.project.BaseClasses;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -27,9 +30,13 @@ public class Test1BaseClass {
 	protected ConfigDataProvider config;
 	protected ExtentReports report;
 	protected ExtentTest logger;
+	protected Logger log;
 	
 	@BeforeSuite
 	public void beforeSuite() {
+		log=Logger.getLogger("Test1BaseClass");
+		//PropertyConfigurator.configure("log4j.properties");
+		DOMConfigurator.configure("log4j2.xml");
 		Reporter.log("Setting up the browser",true);
 		excel=new ExcelDataProvider();
 		config=new ConfigDataProvider();
@@ -49,9 +56,9 @@ public class Test1BaseClass {
 		if(ITestResult.FAILURE==result.getStatus()) {
 			logger.fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver, result.getTestName())).build());
 		}else if(ITestResult.SUCCESS==result.getStatus()) {
-			logger.pass("Test Passed", MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver, result.getTestName())).build());
+			logger.pass("Test Passed");
 		}else if(ITestResult.SKIP==result.getStatus()) {
-			logger.skip("Test Skipped", MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenshot(driver, result.getTestName())).build());
+			logger.skip("Test Skipped");
 		}
 		report.flush();
 	}

@@ -18,8 +18,8 @@ public class Helper {
 	 * @return
 	 */
 	public static String captureScreenshot(WebDriver driver,String ScreenshotName) {
-		ScreenshotName=ScreenshotName+"_"+generateCurrentTime();
-		File file=new File(System.getProperty("user.dir")+"/Screenshot/"+ScreenshotName+".png");
+		ScreenshotName=System.getProperty("user.dir")+"/Screenshot/"+ScreenshotName+"_"+generateCurrentTime()+".png";
+		File file=new File(ScreenshotName);
 
 		TakesScreenshot ts=(TakesScreenshot)driver;
 		File src=ts.getScreenshotAs(OutputType.FILE);
