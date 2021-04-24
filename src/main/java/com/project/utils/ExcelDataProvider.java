@@ -1,23 +1,27 @@
 package com.project.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.util.HashMap;
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelDataProvider {
 	
-	XSSFWorkbook wb;
 	
-	public ExcelDataProvider() {
+	Sheet sh;
+	
+	public ExcelDataProvider(String sheetName) {
 		File src=new File(System.getProperty("user.dir")+"/src/test/resources/TestData.xlsx");
-		FileInputStream fin;
+		Workbook wb=null;
 		try {
-			fin = new FileInputStream(src);
-			wb=new XSSFWorkbook(fin);
+			wb=WorkbookFactory.create(src);
 		} catch (Exception e) {
 			System.out.println("unable to load Excel file"+e.getMessage());
 		}
+		sh=wb.getSheet(sheetName);
 	}
 	
 	/**
@@ -27,8 +31,8 @@ public class ExcelDataProvider {
 	 * @param column
 	 * @return
 	 */
-	public String getStringValue(String SheetName,int row,int column) {
-		return wb.getSheet(SheetName).getRow(row).getCell(column).getStringCellValue();
+	public String getStringValue(int row,int column) {
+		return sh.getRow(row).getCell(column).getStringCellValue();
 	}
 	
 	
@@ -39,10 +43,19 @@ public class ExcelDataProvider {
 	 * @param column
 	 * @return
 	 */
-	public int getIntValue(String SheetName,int row,int column) {
-		return (int) wb.getSheet(SheetName).getRow(row).getCell(column).getNumericCellValue();
+	public int getIntValue(int row,int column) {
+		return (int) sh.getRow(row).getCell(column).getNumericCellValue();
 	}
 	
-	
+	@SuppressWarnings("deprecation")
+	public HashMap<String, String> getValue(int rownumber) {
+		HashMap<String,String> hm=new HashMap<String,String>();
+		for(int i=0;i<=sh.getRow(0).getLastCellNum();i++) {
+			sh.getRow(rownumber).getCell(i).setCellType(CellType.STRING);
+			hm.put(sh.getRow(0).getCell(i).getStringCellValue(), sh.getRow(rownumber).getCell(i).getStringCellValue());
+			
+		}
+		return hm; 
+	}
 
 }
