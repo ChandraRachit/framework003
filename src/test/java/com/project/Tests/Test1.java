@@ -2,9 +2,9 @@ package com.project.Tests;
 
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
-
 import com.project.BaseClasses.Test1BaseClass;
 import com.project.PageObjects.LoginPage;
+import com.project.utils.Driverfactory;
 
 public class Test1 extends Test1BaseClass {
 	
@@ -13,12 +13,12 @@ public class Test1 extends Test1BaseClass {
 	public void test1() throws InterruptedException {
 		log.info("Test Started by Tester");
 		logger=report.createTest("Login to CRM");
-		LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+		LoginPage loginPage = PageFactory.initElements(Driverfactory.getInstance().getDriver(), LoginPage.class);
 		logger.info("Logging to account");
 		loginPage.clickOnSignIn();
 		Thread.sleep(3000);
-		loginPage.enterEmail(excel.getStringValue("Login", 0, 0));
-		loginPage.enterPassword(excel.getStringValue("Login", 0, 1));
+		loginPage.enterEmail(excel.getStringValue(0, 0));
+		loginPage.enterPassword(excel.getStringValue(0, 1));
 		loginPage.clickSignInSubmit();
 	}
 	
@@ -26,12 +26,12 @@ public class Test1 extends Test1BaseClass {
 	public void test2() throws InterruptedException {
 		log.info("Test Started by Tester");
 		logger=report.createTest("Logout");
-		LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+		LoginPage loginPage = PageFactory.initElements(Driverfactory.getInstance().getDriver(), LoginPage.class);
 		logger.info("Logging to account");
 		loginPage.clickOnSignIn();
 		Thread.sleep(3000);
-		loginPage.enterEmail(excel.getStringValue("Login", 0,0));
-		loginPage.enterPassword(excel.getStringValue("Login", 0, 1));
+		loginPage.enterEmail(excel.getStringValue(0,0));
+		loginPage.enterPassword(excel.getStringValue(0, 1));
 		loginPage.clickSignInSubmit();
 	}
 }
