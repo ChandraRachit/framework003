@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
@@ -25,12 +23,14 @@ import com.project.utils.ExcelDataProvider;
 import com.project.utils.Helper;
 
 public class Test1BaseClass {
-	
+
 	protected ExcelDataProvider excel;
 	protected ConfigDataProvider config;
 	protected ExtentReports report;
 	protected ExtentTest logger;
 	protected Logger log;
+	
+	
 	
 	@BeforeSuite
 	public void beforeSuite() {
