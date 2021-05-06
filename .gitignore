@@ -3,3 +3,6 @@
 .project
 /test-output/
 .settings
+/Screenshot
+/Report
+/Drivers
